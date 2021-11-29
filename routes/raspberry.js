@@ -2,32 +2,31 @@ const bodyParser = require("body-parser");
 const chalk = require("chalk");
 const exPress = require("express");
 const router = exPress.Router();
+const raspberryActions = require("../controllers/raspberryActions.js");
+
+const myRaspberry = new raspberryActions(36);
 
 router.use(bodyParser.json());
 
-router.get("/raspberry", function(request, response){
-    console.log(request)
+router.get("/ledOn", function (request, response){
+    console.log(request);
     response.json("Led On");
-    console.log(chalk.red("Led on"));
+    myRaspberry.ledOn();
+    console.log(chalk.yellow("Led turned on"));
 
-});
+	});
 
-router.get("/home", function(request, response){
-    console.log(request)
-    response.json("welcome to home");
-    console.log(chalk.gray("welcome home"));
+router.get("/ledOff", function  (request, response){
+	console.log(request);
+	response.json("Led Off");
+	myRaspberry.ledOff();
+	console.log(chalk.yellow("led turned off"));
+	});
 
-});
 
-router.post("/raspberry", (req, res)=>{
-    res.send(req.body);
-
-    const {LedIntensity} = req.body;
-    console.log(LedIntensity);
-
-    console.log(req.body);
-    
+router.get("/pinLed", (req, res)=>{
+    res.json(myRaspberry.pinLed)  
    
-})
+});
 
 module.exports = router;
