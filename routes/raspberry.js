@@ -24,15 +24,9 @@ router.get("/ledOff", function  (request, response){
 	});
 
 
-router.post("/raspberry", (req, res)=>{
-    res.send(req.body);
-
-    const {LedIntensity} = req.body;
-    console.log(LedIntensity);
-
-    console.log(req.body);
-    
+router.get("/pinLed", (req, res)=>{
+    res.json(myRaspberry.pinLed)  
    
-})
+});
 
 module.exports = router;
